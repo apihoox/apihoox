@@ -1,5 +1,6 @@
 import pg from "pg";
 const { Pool } = pg;
+import { NodePostgresAdapter } from "@lucia-auth/adapter-postgresql";
 
 const connectionString = process.env.DATABASE_URL as string;
 
@@ -17,3 +18,7 @@ export const setSearchPath = async (schemaName: string) => {
     client.release();
   }
 };
+export const adapter = new NodePostgresAdapter(db, {
+  user: "auth_user",
+  session: "user_session",
+});
